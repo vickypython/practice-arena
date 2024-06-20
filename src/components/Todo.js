@@ -15,7 +15,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 //   return POSTS
 //   }
 const Todo = () => {
-  // const [post, setPost] = useState("");
+   const [post, setPost] = useState("");
   const {
     isLoading,
     isError,
@@ -33,19 +33,16 @@ const Todo = () => {
   if (isError) return <h2>errorElement</h2>;
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const name= Object.entries(formData);
-    if (!name) return;
-    mutate({ id:postQuery.length+1,name });
-    e.target.reset();
+    mutate({id: new Date(),post})
+    mutate.reset();
   };
 
   return (
     <div>
       <div>
       <form onSubmit={handleSubmit}>
-        <input  name="name"></input>
-        <button>Add post</button>
+        <input value={post} onChange={(e)=>setPost(e.target.value)} name="name"></input>
+        <button type="submit">Add post</button>
       </form>
       </div>
       {postQuery.map((post) => (
